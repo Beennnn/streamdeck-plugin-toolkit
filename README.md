@@ -13,10 +13,10 @@ display, …). It's a reference, not a framework: a checklist you can copy from.
 
 The real plugins these notes come from — read them alongside as worked examples:
 
-- **[Wi-Fi Picker](https://github.com/Beennnn/streamdeck-wifi-picker)** — switch
+- **[Wi-Fi Switcher](https://github.com/Beennnn/streamdeck-wifi-picker)** — switch
   between your saved Wi-Fi networks from a key or a Stream Deck+ dial (macOS). Its
   docs are the deep dive on the **macOS Location wall** and the honest limits.
-- **[Bluetooth Picker](https://github.com/Beennnn/streamdeck-wifi-picker)** —
+- **[Bluetooth Switcher](https://github.com/Beennnn/streamdeck-wifi-picker)** —
   connect / disconnect paired Bluetooth devices from a key or dial; **bundles a
   universal `blueutil`** — the native-helper + quarantine pattern in practice.
   *(Same repo as Wi-Fi Picker; the two ship as separate plugins from one source
