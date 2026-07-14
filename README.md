@@ -1,7 +1,7 @@
 # Stream Deck plugin toolkit
 
 The tools, commands and gotchas I use to **build, package and ship Elgato Stream
-Deck plugins** — collected from real plugins (a Wi-Fi/Bluetooth picker, a MIDI note
+Deck plugins** — collected from real plugins (a Wi-Fi/Bluetooth switcher, a MIDI note
 display, …). It's a reference, not a framework: a checklist you can copy from.
 
 > Focus: **macOS**, TypeScript plugins, distribution on the **Elgato Marketplace**
@@ -19,7 +19,7 @@ The real plugins these notes come from — read them alongside as worked example
 - **[Bluetooth Switcher](https://github.com/Beennnn/streamdeck-wifi-picker)** —
   connect / disconnect paired Bluetooth devices from a key or dial; **bundles a
   universal `blueutil`** — the native-helper + quarantine pattern in practice.
-  *(Same repo as Wi-Fi Picker; the two ship as separate plugins from one source
+  *(Same repo as Wi-Fi Switcher; the two ship as separate plugins from one source
   tree — see the two-bundles Rollup setup.)*
 - **[MIDI Note Display](https://github.com/Beennnn/streamdeck-midi-note-display)** —
   a Stream Deck+ dial showing a MIDI value as a note name + mini piano (via the
