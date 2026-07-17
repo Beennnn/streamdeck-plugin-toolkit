@@ -97,12 +97,44 @@ per-bundle `outDir` to `@rollup/plugin-typescript` or it errors on the second on
 
 ---
 
+## `sdplugin-verify` — automate the pre-submission checklist
+
+The checks a script *can* run are run for you. `sdplugin-verify` is the plugin
+sibling of [`sdicons verify`](https://github.com/Beennnn/stream-deck-icons): it
+encodes the automatable half of [docs/MARKETPLACE-REVIEW.md](docs/MARKETPLACE-REVIEW.md)
+so a plugin never gets rejected for something detectable ahead of time.
+
+```sh
+bin/sdplugin-verify path/to/<uuid>.sdPlugin          # verify a plugin directory
+bin/sdplugin-verify dist/foo.streamDeckPlugin        # verify the SHIPPED bytes
+bin/sdplugin-verify <plugin> --strict                # warnings become blocking
+bin/sdplugin-verify <plugin> --foreign bluetooth,vpn # force-forbid feature terms
+```
+
+It catches the two real rejection classes plus the manifest gate:
+
+- **`non-white-icon`** (§1) — plugin `Icon`, `CategoryIcon` and every action
+  `Icon` (`@1x`+`@2x`) must be white `#FFFFFF` monochrome on transparent. Key
+  `States[].Image` faces and the store icon are correctly *exempt* (colour OK).
+- **`foreign-reference`** (§2) — a user-visible file (`ui/*.html`, `<lang>.json`,
+  manifest strings) naming a feature the plugin doesn't ship ("mention of a
+  bluetooth action we don't see included"). Foreign terms are auto-derived: every
+  known feature term the plugin doesn't own in its Name/Category/UUID/Description.
+- Manifest gate (§4): `SDKVersion`≥3, `Software.MinimumVersion`≥6.9, 2–30 actions,
+  no `Nodejs.Debug`, valid reverse-domain UUID matching the folder, all referenced
+  images (`@1x`+`@2x`) and Property Inspector files present.
+
+Requires Python 3 + Pillow. Tests: `python3 -m pytest tests/` (41 cases, 98%
+coverage). The **human-only** steps — demo video, gallery re-shoot, the final
+Submit — stay in the doc; the tool never claims those are done.
+
 ## Marketplace requirements (the ones that block submission)
 
 > **Getting through the human review** is a separate skill from meeting the
 > machine checks — white in-app icons, no stale cross-plugin references, a strong
 > gallery, and a demo video are what actually get plugins rejected. Full rejection
 > log + fixes + a pre-submission checklist: **[docs/MARKETPLACE-REVIEW.md](docs/MARKETPLACE-REVIEW.md)**.
+> Run **`bin/sdplugin-verify`** (above) to check the automatable items in one shot.
 
 Maker Console silently disables **Continue** if these aren't met — check them first:
 

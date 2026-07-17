@@ -168,6 +168,11 @@ flow mirrors it):
 
 ## Pre-submission checklist (plugins)
 
+> **Automate the machine-checkable rows first:** `bin/sdplugin-verify
+> <uuid>.sdPlugin` (or `dist/*.streamDeckPlugin`) checks white icons (§1),
+> foreign references (§2), and the manifest gate (§4) in one shot. The ⌨️-marked
+> rows below are what it covers; the rest are human-only.
+
 Run top to bottom before every submit / resubmit:
 
 - [ ] `streamdeck validate <uuid>.sdPlugin` → clean.
