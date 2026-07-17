@@ -25,6 +25,9 @@ def main(argv=None):
                    help="a <UUID>.sdPlugin directory OR a .streamDeckPlugin file")
     p.add_argument("--strict", action="store_true",
                    help="treat warnings as blocking")
+    p.add_argument("--fix", action="store_true",
+                   help="auto-repair what's safely fixable (whiten in-app icons, "
+                        "generate missing @2x) before verifying")
     p.add_argument("--foreign",
                    help="comma-separated foreign feature terms to forbid "
                         "(default: auto — every known term the plugin doesn't own)")
@@ -35,6 +38,15 @@ def main(argv=None):
     if t.is_file() and t.name.endswith(".streamDeckPlugin"):
         findings = verify_container(args.target, foreign=foreign)
     else:
+        if args.fix:
+            from .autofix import autofix
+            fixes = autofix(args.target)
+            if fixes:
+                print(f"→ auto-fixed {len(fixes)} issue(s):")
+                for code, detail in fixes:
+                    print(f"    [{code}] {detail}")
+            else:
+                print("→ nothing to auto-fix")
         findings = verify(args.target, foreign=foreign)
     print_report(args.target, findings, strict=args.strict)
     sys.exit(1 if has_blocking(findings, strict=args.strict) else 0)

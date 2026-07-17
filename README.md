@@ -107,9 +107,18 @@ so a plugin never gets rejected for something detectable ahead of time.
 ```sh
 bin/sdplugin-verify path/to/<uuid>.sdPlugin          # verify a plugin directory
 bin/sdplugin-verify dist/foo.streamDeckPlugin        # verify the SHIPPED bytes
+bin/sdplugin-verify <plugin> --fix                   # auto-repair, then verify
 bin/sdplugin-verify <plugin> --strict                # warnings become blocking
 bin/sdplugin-verify <plugin> --foreign bluetooth,vpn # force-forbid feature terms
 ```
+
+**`--fix`** auto-repairs the safe, unambiguous defects from our own rejections:
+it **whitens** coloured in-app icons (RGB→`#FFFFFF`, alpha kept — never touching
+key `States[].Image` art) and **generates missing `@2x`** variants. Foreign
+references are reported, never auto-edited (they need human intent). Idempotent.
+
+> We plan to offer these checkers to Elgato as an official local pre-publication
+> tool — see [docs/ELGATO-PROPOSAL.md](docs/ELGATO-PROPOSAL.md).
 
 It catches the two real rejection classes plus the manifest gate:
 
